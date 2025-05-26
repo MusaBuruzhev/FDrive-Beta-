@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Каталог автомобилей</h2>
+
+  <div class="filters-bar">
+    <div class="filters-left">
+      <label>
+        Марка:
+        <select [(ngModel)]="tempFilters.brand" (ngModelChange)="updateModels()">
+          <option value="">Любая</option>
+          <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+        </select>
+      </label>
+
+      <label>
+        Модель:
+        <select [(ngModel)]="tempFilters.model" [disabled]="!tempFilters.brand" (ngModelChange)="onModelChange()">
+          <option value="">Любая</option>
+          <option *ngFor="let model of availableModels" [value]="model">{{ model }}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="filters-right">
+      <button (click)="showAllFilters = !showAllFilters">
+        {{ showAllFilters ? 'Скрыть все фильтры' : 'Все фильтры' }}
+      </button>
+      <button (click)="resetFilters()">Сбросить фильтры</button>
+    </div>
+  </div>
+
+  <div *ngIf="showAllFilters" class="all-filters">
+    <div class="filters-row">
+      <label>
+        Коробка передач:
+        <select [(ngModel)]="tempFilters.transmission">
+          <option value="">Любая</option>
+          <option value="manual">Механическая</option>
+          <option value="automatic">Автоматическая</option>
+        </select>
+      </label>
+
+      <label>
+        Кол-во мест:
+        <select [(ngModel)]="tempFilters.seats">
+          <option value="">Любое</option>
+          <option *ngFor="let s of [2, 4, 5, 7, 8]" [value]="s">{{ s }}</option>
+        </select>
+      </label>
+
+      <label>
+        Топливо:
+        <select [(ngModel)]="tempFilters.fuel">
+          <option value="">Любое</option>
+          <option value="petrol">Бензин</option>
+          <option value="diesel">Дизель</option>
+          <option value="electric">Электро</option>
+        </select>
+      </label>
+
+      <label>
+        Цвет:
+        <input type="text" [(ngModel)]="tempFilters.color" placeholder="Введите цвет" />
+      </label>
+
+      <label>
+        Год:
+        <input type="text" [(ngModel)]="tempFilters.year" placeholder="Напр. 2020" />
+      </label>
+    </div>
+
+    <div class="price-row">
+      <label>
+        Цена, ₽:
+        <div class="price-inputs">
+          <input type="number" placeholder="От" [(ngModel)]="tempFilters.priceFrom" />
+          <input type="number" placeholder="До" [(ngModel)]="tempFilters.priceTo" />
+        </div>
+      </label>
+      <button class="apply-btn" (click)="applyFilters()">Применить фильтры</button>
+    </div>
+  </div>
+
+  <div class="active-filters" *ngIf="getFilterKeys().length > 0">
+    <span *ngFor="let key of getFilterKeys()" class="filter-chip">
+      {{ key }}: {{ filtersFromQuery[key] }}
+      <button (click)="removeFilter(key)">✕</button>
+    </span>
+  </div>
+
+  <div class="cart">
+    <app-car-card *ngFor="let car of cars" [car]="car"></app-car-card>
+  </div>
+</div>

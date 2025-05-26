@@ -1,0 +1,147 @@
+<div class="baner">
+  <h1>Маркетплейс аренды автомобилей</h1>
+  <p>Мы объединили 2000+ предложений прокатов и частных автовладельцев по всей России</p>
+
+  <form class="fil" (ngSubmit)="onSubmitFilter($event)">
+    <div class="filters">
+      <div class="filter-item">
+        <label for="startDate">Начало:</label>
+        <input type="date" id="startDate" name="startDate" [(ngModel)]="filters.startDate" />
+      </div>
+      <div class="filter-item">
+        <label for="endDate">Завершение:</label>
+        <input type="date" id="endDate" name="endDate" [(ngModel)]="filters.endDate" />
+      </div>
+      <div class="filter-item">
+        <label for="transmission">Коробка передач:</label>
+        <select id="transmission" name="transmission" [(ngModel)]="filters.transmission">
+          <option value="">Любая</option>
+          <option value="manual">Механическая</option>
+          <option value="automatic">Автоматическая</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label for="brand">Марка:</label>
+        <select id="brand" name="brand" (change)="onBrandChange($event)">
+          <option value="">Любая</option>
+          <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label for="model">Модель:</label>
+        <select id="model" name="model" [disabled]="!filters.brand" [(ngModel)]="filters.model">
+          <option value="">Любая</option>
+          <option *ngFor="let model of availableModels" [value]="model">{{ model }}</option>
+        </select>
+      </div>
+      <button class="filter_NTN" type="submit">Найти автомобиль</button>
+    </div>
+  </form>
+</div>
+
+<div class="main">
+  <div class="logo-block" #logoBlock>
+    <div class="logo-wrapper">
+      <img class="logo" src="/logo.png" alt="Логотип" />
+    </div>
+
+    <div class="info-text">
+      <!-- Левая часть с 3 шагами аренды -->
+      <div class="info-text_tt tt_l">
+        <p style="color: rgb(114, 114, 114);">Теперь</p>
+        <div style="display: flex; margin-top: -60px;">
+          <h1 style="color: black;">Арендуй авто за</h1>
+          <h1 style="color: red; margin-left: 15px;">3</h1>
+        </div>
+        <h1 style="color: red; margin-top: -50px;">шага</h1>
+        <button>Арендовать машину</button>
+      </div>
+
+      <!-- Правая часть с шагами -->
+      <div class="info-text_tt tt_r">
+        <div class="steps">
+          <div class="step" #step1>
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Выберите автомобиль</h3>
+              <p>Определитесь с моделью и классом авто, который вам нужен.</p>
+            </div>
+          </div>
+          <div class="step" #step2>
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Укажите срок аренды</h3>
+              <p>Выберите даты получения и возврата автомобиля.</p>
+            </div>
+          </div>
+          <div class="step" #step3>
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Заберите авто</h3>
+              <p>Подпишите договор и получите ключи от выбранного авто.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart">
+    <app-car-card *ngFor="let car of cars" [car]="car"></app-car-card>
+  </div>
+</div>
+
+<div class="info">
+  <div>почему мы</div>
+  <div class="info_h1">
+    <h1>Мы предложим вам</h1>
+    <h1 class="info_h1_red">лучшие </h1>
+  </div>
+  <div class="info_h1 top">
+    <h1 class="info_h1_red">условия </h1>
+    <h1>аренды</h1>
+  </div>
+  <div>
+    <div class="advantages-container">
+      <div class="advantages-grid">
+        <div class="advantage-item">
+          <div class="advantage-head">
+            <img src="/ICON/1.png" alt="Аренда без депозита" />
+            <span class="advantage-number"><span><</span> 01 <span>></span></span>
+          </div>
+          <h3 class="advantage-title">Аренда без депозита</h3>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-head">
+            <img src="/ICON/2.png" alt="НДС включён в стоимость" />
+            <span class="advantage-number"><span><</span> 02 <span>></span></span>
+          </div>
+          <h3 class="advantage-title">НДС включён в стоимость</h3>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-head">
+            <img src="/ICON/3.png" alt="Любая форма оплаты" />
+            <span class="advantage-number"><span><</span> 03 <span>></span></span>
+          </div>
+          <h3 class="advantage-title">Любая форма оплаты</h3>
+          <p class="advantage-description">наличные, mastercard, visa и другие</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-head">
+            <img src="/ICON/4.png" alt="Полный бак в подарок" />
+            <span class="advantage-number"><span><</span> 04 <span>></span></span>
+          </div>
+          <h3 class="advantage-title">Полный бак в подарок</h3>
+          <p class="advantage-description">Платные дороги включены в стоимость</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-head">
+            <img src="/ICON/5.png" alt="Новые автомобили с минимальным пробегом" />
+            <span class="advantage-number"><span><</span> 05 <span>></span></span>
+          </div>
+          <h3 class="advantage-title">Новые автомобили с минимальным пробегом</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

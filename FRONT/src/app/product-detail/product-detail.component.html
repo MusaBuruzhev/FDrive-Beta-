@@ -1,0 +1,70 @@
+<div class="container">
+  <button class="back-btn" (click)="goBack()">Шаг назад</button>
+
+  <div *ngIf="car" class="product-detail">
+    <h2>{{ car.name }} {{ car.carModel }}</h2>
+
+    <div class="top-section">
+      <div class="image-section">
+        <img
+          *ngIf="car.image && car.image.length > 0"
+          [src]="car.image[activeImageIndex]"
+          alt="{{ car.name }} {{ car.carModel }}"
+          class="main-image"
+        />
+        <div class="loading" *ngIf="!car.image || car.image.length === 0">
+          Изображений нет
+        </div>
+
+        <!-- Кнопки переключения -->
+        <div class="arrow left" *ngIf="car.image && car.image.length > 1" (click)="prevImage()">←</div>
+        <div class="arrow right" *ngIf="car.image && car.image.length > 1" (click)="nextImage()">→</div>
+      </div>
+
+      <div class="rental-menu">
+        <h3>Период аренды</h3>
+        <div class="rental-option">
+          <label>Начало</label>
+          <input type="date" />
+        </div>
+        <div class="rental-option">
+          <label>Окончание</label>
+          <input type="date" />
+        </div>
+        <div class="rental-option">
+          <label>Куда поедете</label>
+          <select>
+            <option>Выберите</option>
+          </select>
+        </div>
+        <div class="rental-option">
+          <label>Доставка автомобиля</label>
+          <select>
+            <option>Выберите</option>
+          </select>
+        </div>
+        <button class="rent-btn">Забронировать</button>
+      </div>
+    </div>
+
+    <div class="owner-info">
+      <span>ID владельца: {{ car.ownerId || 'Нет данных' }}</span>
+      <span>Раздел в разработке: профиль владельца</span>
+    </div>
+
+    <div class="details-section">
+      <div class="details-item"><span>Цена:</span><span>{{ car.price }} ₽</span></div>
+      <div class="details-item"><span>Год выпуска:</span><span>{{ car.carYear }}</span></div>
+      <div class="details-item"><span>Цвет:</span><span>{{ car.carColor }}</span></div>
+      <div class="details-item"><span>Коробка передач:</span><span>{{ car.carTransmission }}</span></div>
+      <div class="details-item"><span>Топливо:</span><span>{{ car.carFuelType }}</span></div>
+      <div class="details-item"><span>Кол-во мест:</span><span>{{ car.carSeats }}</span></div>
+      <div class="details-item"><span>Описание:</span><span>{{ car.description }}</span></div>
+      <div class="details-item"><span>Доставка:</span><span>{{ car.canDeliver ? 'Доступна' : 'Недоступна' }}</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="!car" class="loading">
+    <p>Загрузка...</p>
+  </div>
+</div>

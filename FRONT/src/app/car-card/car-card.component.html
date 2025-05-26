@@ -1,0 +1,24 @@
+<div class="car-card">
+  <div class="image-link">
+    <img [src]="formatImage(car.image)" alt="{{ car.name }}" />
+  </div>
+  <div class="info">
+    <h2>{{ car.name }}</h2>
+    <p class="details">{{ car.description }}</p>
+    <div class="price-row">
+      <p class="price">от {{ car.price }} RUB</p>
+      <p class="per-day">в день</p>
+    </div>
+    <div class="dropdown">
+      <ul>
+        <li>Цена за неделю: {{ 7 * car.price }} RUB</li>
+        <li>Цена за месяц: {{ 30 * car.price }} RUB</li>
+      </ul>
+    </div>
+    <div class="buttons">
+      <a href="#" class="btn filled" *ngIf="!isOwnCar">Арендовать</a>
+      <a class="btn outlined" [routerLink]="['/product', car._id]">Детали</a>
+      <a href="#" class="btn outlined">Сравнить</a>
+    </div>
+  </div>
+</div>

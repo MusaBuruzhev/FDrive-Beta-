@@ -1,0 +1,228 @@
+/* Общий контейнер */
+.container {
+  width: 90%;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка "Шаг назад" */
+.back-btn {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #000000, #333333);
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.5s ease, transform 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: linear-gradient(90deg, #646464, #000000);
+  transform: scale(1.05);
+}
+
+/* Заголовок */
+h2 {
+  text-align: center;
+  color: #000000;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Верхняя секция (фото + бронирование) */
+.top-section {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+/* Секция с изображением */
+.image-section {
+  flex: 2; /* Увеличено в 2 раза */
+  position: relative;
+  max-width: 60%; /* Увеличено максимальную ширину */
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.5s ease, transform 0.2s ease;
+}
+
+.arrow:hover {
+  background-color: #ff0000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+/* Информация о владельце */
+.owner-info {
+  text-align: center;
+  font-size: 14px;
+  color: #646464;
+  margin-bottom: 20px;
+}
+
+.owner-info span {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+/* Меню бронирования */
+.rental-menu {
+  flex: 0.5; /* Уменьшено в 2 раза */
+  background-color: #f3f3f3;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rental-menu h3 {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.rental-option {
+  margin-bottom: 15px;
+}
+
+.rental-option label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #3f3f3f;
+  margin-bottom: 5px;
+}
+
+.rental-option input,
+.rental-option select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 45px;
+  background-color: #ffffff;
+  color: #3f3f3f;
+  transition: border-color 0.5s ease, box-shadow 0.3s ease;
+}
+
+.rental-option input:focus,
+.rental-option select:focus {
+  outline: none;
+  border-color: #ff0000;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+}
+
+.rent-btn {
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #ff0000, #cc0000);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.5s ease, transform 0.2s ease;
+}
+
+.rent-btn:hover {
+  background: linear-gradient(90deg, #cc0000, #ff0000);
+  transform: scale(1.02);
+}
+
+/* Секция характеристик */
+.details-section {
+  background-color: #f3f3f3;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #3f3f3f;
+  margin-bottom: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.details-item span:first-child {
+  font-weight: 600;
+  color: #000000;
+}
+
+/* Загрузка */
+.loading {
+  text-align: center;
+  font-size: 20px;
+  color: #646464;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    margin: 50px auto;
+  }
+
+  .top-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .image-section {
+    max-width: 100%;
+    flex: 1; /* Сброс на мобильных */
+  }
+
+  .rental-menu {
+    flex: 1; /* Сброс на мобильных */
+    padding: 15px;
+  }
+
+  .details-section {
+    padding: 15px;
+  }
+
+  .details-item {
+    font-size: 14px;
+  }
+}

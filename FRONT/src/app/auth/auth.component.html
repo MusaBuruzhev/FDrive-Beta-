@@ -1,0 +1,92 @@
+<div class="centered-container">
+  <div class="container" [class.right-panel-active]="isSignUp">
+    <!-- Вход через username и пароль -->
+    <div class="form-container sign-in-container">
+      <form (ngSubmit)="onLogin()" class="form">
+        <h1>Вход</h1>
+        <span>Используйте логин и пароль</span>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Логин"
+          [(ngModel)]="loginData.username"
+          name="username"
+          required
+        />
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Пароль"
+          [(ngModel)]="loginData.password"
+          name="password"
+          required
+        />
+        <a href="#" class="forgot-password">Забыли пароль?</a>
+        <button type="submit" class="action-btn" [disabled]="!loginData.username || !loginData.password">Войти</button>
+        <div class="messages">
+          <p *ngIf="loginError" class="error">{{ loginError }}</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Регистрация/Вход через email и код -->
+    <div class="form-container sign-up-container">
+      <form (ngSubmit)="onEmailAuth()" class="form">
+        <h1>Вход или регистрация</h1>
+        <span>Введите ваш email</span>
+        <input
+          type="email"
+          class="form-input"
+          placeholder="Email"
+          pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+          [(ngModel)]="emailData.email"
+          name="email"
+          required
+        />
+        <div class="code-container" *ngIf="showCodeInput">
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Код подтверждения"
+            [(ngModel)]="emailData.code"
+            name="code"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="action-btn"
+          [disabled]="!emailData.email || (showCodeInput && !emailData.code)"
+        >
+          {{ showCodeInput ? 'Подтвердить код' : 'Отправить код' }}
+        </button>
+        <div class="messages">
+          <p *ngIf="emailError" class="error">{{ emailError }}</p>
+          <p *ngIf="emailMessage" class="success">{{ emailMessage }}</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Оверлей -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Уже с нами?</h1>
+          <p>Войдите через логин и пароль</p>
+          <button class="ghost-btn" (click)="isSignUp = false">Вход</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Новичок?</h1>
+          <p>Войдите или зарегистрируйтесь через email</p>
+          <button class="ghost-btn" (click)="isSignUp = true">Вход/Регистрация</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Надпись после успеха -->
+    <div class="welcome-message" *ngIf="showWelcome">
+      <h1>Добро пожаловать!</h1>
+      <p>Задайте логин и пароль в профиле для входа через них.</p>
+    </div>
+  </div>
+</div>  

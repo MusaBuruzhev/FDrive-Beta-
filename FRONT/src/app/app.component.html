@@ -1,0 +1,64 @@
+<header class="site-header">
+  <div class="med">
+    <a href="/" class="logo-link" aria-label="На главную">
+      <div class="logo"></div>
+    </a>
+
+    <nav class="main-nav">
+      <a routerLink="/">Автопарк</a>
+      <a routerLink="/">Условия аренды</a>
+      <a routerLink="/">Цены</a>
+      <a routerLink="/">Сертификаты</a>
+      <a routerLink="/">О нас</a>
+      <a routerLink="/">Контакты</a>
+      <a
+        *ngIf="!isAuthenticated"
+        routerLink="/auth"
+        >Войти</a
+      >
+      <a
+        *ngIf="isAuthenticated"
+        [routerLink]="isAdmin ? '/admin' : '/profile'"
+        >Профиль</a
+      >
+    </nav>
+  </div>
+</header>
+<router-outlet></router-outlet>
+
+
+<router-outlet></router-outlet>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <a href="/" aria-label="На главную">
+        <img src="/logo.png" alt="Логотип компании" width="120">
+      </a>
+      <p>Маркетплейс аренды автомобилей по всей России</p>
+    </div>
+
+    <nav class="footer-nav">
+      <h3>Навигация</h3>
+      <ul>
+        <li><a routerLink="/">Автопарк</a></li>
+        <li><a routerLink="/">Условия аренды</a></li>
+        <li><a routerLink="/">Цены</a></li>
+        <li><a routerLink="/">О нас</a></li>
+        <li><a routerLink="/">Контакты</a></li>
+        <li><a routerLink="/">Сотрудничество</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-contact">
+      <h3>Контакты</h3>
+      <p>Email: infoexample.com</p>
+      <p>Телефон: +7 (999) 123-45-67</p>
+      <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Маркетплейс аренды авто. Все права защищены.</p>
+  </div>
+</footer>
