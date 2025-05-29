@@ -88,7 +88,7 @@ EMAIL_USER=ваш_email
 EMAIL_PASS=пароль_приложения
 MONGO_URI=строка_подключения_MongoDB
 PORT=8080
-CLIENT_URL=http://localhost:4200
+CLIENT_URL=http://localhost:4200-
 
 
 4.Установите зависимости и запустите backend:
