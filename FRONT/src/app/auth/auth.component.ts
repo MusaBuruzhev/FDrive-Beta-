@@ -22,12 +22,41 @@ export class AuthComponent {
   showWelcome = false;
   private apiUrl = 'http://localhost:5000';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    // Check for expired token on component initialization
+    this.checkTokenExpiration();
+  }
+
+  // Store token with expiration timestamp (1 hour from now)
+  private storeToken(token: string) {
+    const expiration = Date.now() + 60 * 60 * 1000; // 1 hour in milliseconds
+    localStorage.setItem('token', token);
+    localStorage.setItem('tokenExpiration', expiration.toString());
+  }
+
+  // Check if token is expired and remove it if necessary
+  private checkTokenExpiration(): boolean {
+    const token = localStorage.getItem('token');
+    const expiration = localStorage.getItem('tokenExpiration');
+
+    if (token && expiration) {
+      const expirationTime = parseInt(expiration, 10);
+      if (Date.now() > expirationTime) {
+        // Token has expired, remove it
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
+        this.router.navigate(['/auth']);
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
 
   onLogin() {
     this.http.post(`${this.apiUrl}/auth/login`, this.loginData).subscribe({
       next: (response: any) => {
-        localStorage.setItem('token', response.token);
+        this.storeToken(response.token); // Use storeToken instead of setItem
         this.redirectBasedOnRole(response.token);
       },
       error: (err) => {
@@ -52,7 +81,7 @@ export class AuthComponent {
     } else {
       this.http.post(`${this.apiUrl}/auth/verify-email`, this.emailData).subscribe({
         next: (response: any) => {
-          localStorage.setItem('token', response.token);
+          this.storeToken(response.token); // Use storeToken instead of setItem
           this.showWelcome = true;
           setTimeout(() => {
             this.redirectBasedOnRole(response.token);
@@ -67,12 +96,17 @@ export class AuthComponent {
   }
 
   redirectBasedOnRole(token: string) {
+    // Check if token is still valid before proceeding
+    if (!this.checkTokenExpiration()) {
+      return; // If token is expired, checkTokenExpiration already handles redirect
+    }
+
     this.http.get(`${this.apiUrl}/auth/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (profile: any) => {
         console.log('Ответ от /auth/profile:', profile);
-        console.log('Роли:', profile.user.roles); // Исправлено: profile.user.roles
+        console.log('Роли:', profile.user.roles);
         if (profile.user.roles && Array.isArray(profile.user.roles) && profile.user.roles.includes('ADMIN')) {
           console.log('Роль ADMIN, редирект на /admin');
           this.router.navigate(['/admin']);
@@ -85,6 +119,7 @@ export class AuthComponent {
         console.error('Ошибка при запросе профиля:', err);
         this.emailError = 'Ошибка получения профиля: ' + (err.error?.message || 'Попробуйте снова');
         localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration'); 
         this.router.navigate(['/auth']);
       }
     });

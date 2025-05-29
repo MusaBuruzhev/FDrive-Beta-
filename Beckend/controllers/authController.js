@@ -36,51 +36,52 @@ class authController {
     }
   }
 
-  async registration(req, res) {
-    try {
-      const { email } = req.body;
-      const username = email.split("@")[0];
+async registration(req, res) {
+  try {
+    const { email } = req.body;
+    const username = email.split("@")[0];
 
-      let userRole = await Role.findOne({ value: "USER" });
-      if (!userRole) {
-        userRole = new Role({ value: "USER" });
-        await userRole.save();
-      }
-
-      const verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
-      let user = await User.findOne({ email });
-
-      if (!user) {
-        user = new User({
-          email,
-          username,
-          password: undefined,
-          roles: [userRole.value],
-          verificationCode,
-          isVerified: false
-        });
-        await user.save();
-      } else {
-        user.verificationCode = verificationCode;
-        await user.save();
-      }
-
-      const message = {
-        to: email,
-        subject: "Код подтверждения регистрации",
-        text: `Ваш код подтверждения: ${verificationCode}`,
-      };
-
-      mailer(message);
-      return res.status(200).json({ message: "На ваш email отправлен код подтверждения", email });
-    } catch (e) {
-      if (e.code === 11000 && e.keyPattern?.username) {
-        return res.status(400).json({ message: "Этот логин уже занят", field: "username" });
-      }
-      console.log(e);
-      return res.status(400).json({ message: "Ошибка регистрации" });
+    let userRole = await Role.findOne({ value: "USER" });
+    if (!userRole) {
+      userRole = new Role({ value: "USER" });
+      await userRole.save();
     }
+
+    const verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({
+        email,
+        username,
+        password: undefined,
+        roles: [userRole.value],
+        verificationCode,
+        isVerified: false,
+      });
+      await user.save();
+    } else {
+      user.verificationCode = verificationCode;
+      await user.save();
+    }
+
+    const message = {
+      from: process.env.EMAIL_USER, // Добавляем поле from
+      to: email,
+      subject: "Код подтверждения регистрации",
+      text: `Ваш код подтверждения: ${verificationCode}`,
+    };
+
+    await mailer(message); // Ожидаем отправку email
+    return res.status(200).json({ message: "На ваш email отправлен код подтверждения", email });
+  } catch (e) {
+    if (e.code === 11000 && e.keyPattern?.username) {
+      return res.status(400).json({ message: "Этот логин уже занят", field: "username" });
+    }
+    console.error("Ошибка регистрации:", e);
+    return res.status(400).json({ message: "Ошибка регистрации", error: e.message });
   }
+}
 
   async verifyEmail(req, res) {
     try {

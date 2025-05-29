@@ -22,14 +22,14 @@
       </div>
       <div class="filter-item">
         <label for="brand">Марка:</label>
-        <select id="brand" name="brand" (change)="onBrandChange($event)">
-          <option value="">Любая</option>
-          <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+        <select id="brand" class="bbc" name="brand" (change)="onBrandChange($event)">
+          <option value="" class="bbc">Любая</option>
+          <option *ngFor="let brand of brands" [value]="brand.name" >{{ brand.name }}</option>
         </select>
       </div>
       <div class="filter-item">
         <label for="model">Модель:</label>
-        <select id="model" name="model" [disabled]="!filters.brand" [(ngModel)]="filters.model">
+        <select id="model" class="bbc" name="model" [disabled]="!filters.brand" [(ngModel)]="filters.model">
           <option value="">Любая</option>
           <option *ngFor="let model of availableModels" [value]="model">{{ model }}</option>
         </select>

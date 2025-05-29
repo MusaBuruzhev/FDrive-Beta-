@@ -1,4 +1,4 @@
-/* Общий контейнер */
+
 .container {
   width: 90%;
   margin: 100px auto;
@@ -9,7 +9,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Кнопка "Шаг назад" */
+
 .back-btn {
   padding: 10px 20px;
   background: linear-gradient(90deg, #000000, #333333);
@@ -28,9 +28,9 @@
   transform: scale(1.05);
 }
 
-/* Заголовок */
+
 h2 {
-  text-align: center;
+  margin-top: -23px;
   color: #000000;
   font-size: 36px;
   font-weight: 700;
@@ -39,23 +39,24 @@ h2 {
   letter-spacing: 1px;
 }
 
-/* Верхняя секция (фото + бронирование) */
+
 .top-section {
   display: flex;
   gap: 30px;
   margin-bottom: 30px;
 }
 
-/* Секция с изображением */
+
 .image-section {
-  flex: 2; /* Увеличено в 2 раза */
+  flex: 2;
   position: relative;
-  max-width: 60%; /* Увеличено максимальную ширину */
+  max-width: 60%;
 }
 
 .image-section img {
   width: 100%;
   height: auto;
+  max-height: 836px;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -87,7 +88,7 @@ h2 {
   right: 10px;
 }
 
-/* Информация о владельце */
+
 .owner-info {
   text-align: center;
   font-size: 14px;
@@ -100,13 +101,18 @@ h2 {
   margin: 0 5px;
 }
 
-/* Меню бронирования */
+.sspan_description{
+  max-width: 1000px;
+}
 .rental-menu {
-  flex: 0.5; /* Уменьшено в 2 раза */
-  background-color: #f3f3f3;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 0.5;
+    display: flex;
+    background-color: #f3f3f3;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .rental-menu h3 {
@@ -166,7 +172,7 @@ h2 {
   transform: scale(1.02);
 }
 
-/* Секция характеристик */
+
 .details-section {
   background-color: #f3f3f3;
   padding: 25px;
@@ -189,14 +195,14 @@ h2 {
   color: #000000;
 }
 
-/* Загрузка */
+
 .loading {
   text-align: center;
   font-size: 20px;
   color: #646464;
 }
 
-/* Адаптивность */
+
 @media (max-width: 768px) {
   .container {
     width: 95%;
@@ -210,11 +216,11 @@ h2 {
 
   .image-section {
     max-width: 100%;
-    flex: 1; /* Сброс на мобильных */
+    flex: 1;
   }
 
   .rental-menu {
-    flex: 1; /* Сброс на мобильных */
+    flex: 1;
     padding: 15px;
   }
 

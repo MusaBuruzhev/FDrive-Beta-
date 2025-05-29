@@ -1,5 +1,5 @@
 <div class="container">
-  <button class="back-btn" (click)="goBack()">Шаг назад</button>
+  <button class="back-btn" (click)="goBack()">назад</button>
 
   <div *ngIf="car" class="product-detail">
     <h2>{{ car.name }} {{ car.carModel }}</h2>
@@ -16,7 +16,7 @@
           Изображений нет
         </div>
 
-        <!-- Кнопки переключения -->
+        
         <div class="arrow left" *ngIf="car.image && car.image.length > 1" (click)="prevImage()">←</div>
         <div class="arrow right" *ngIf="car.image && car.image.length > 1" (click)="nextImage()">→</div>
       </div>
@@ -59,7 +59,7 @@
       <div class="details-item"><span>Коробка передач:</span><span>{{ car.carTransmission }}</span></div>
       <div class="details-item"><span>Топливо:</span><span>{{ car.carFuelType }}</span></div>
       <div class="details-item"><span>Кол-во мест:</span><span>{{ car.carSeats }}</span></div>
-      <div class="details-item"><span>Описание:</span><span>{{ car.description }}</span></div>
+      <div class="details-item"><span>Описание:</span><span class="sspan_description">{{ car.description }}</span></div>
       <div class="details-item"><span>Доставка:</span><span>{{ car.canDeliver ? 'Доступна' : 'Недоступна' }}</span></div>
     </div>
   </div>

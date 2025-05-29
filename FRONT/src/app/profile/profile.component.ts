@@ -45,8 +45,8 @@ export class ProfileComponent implements OnInit {
   carImagePreviews: string[] = [];
   brands = CAR_BRANDS_MODELS;
   availableModels: string[] = [];
-  transmissions = ['manual', 'automatic'];
-  fuelTypes = ['petrol', 'diesel', 'electric'];
+  transmissions = ['Механика', 'Автомат '];
+  fuelTypes = ['Бензиновый ', 'Дизель', 'Электро'];
   seatsOptions = [2, 4, 5, 7, 8];
   years = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i).reverse();
 

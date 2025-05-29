@@ -72,10 +72,12 @@
       </div>
     </div>
 
-    <!-- Остальные секции -->
+ 
     <div *ngIf="section === 'documents'" class="documents-section">
+      <h1 >Прикрепите паспорт и ожидайте проверки </h1>
+      <p>Сервис гарантирует конфиденциальность данных. Ваши документы не будут отображаться в публичном профиле.</p>
       <div class="doc-grid-styled">
-        <!-- Первая сторона -->
+        
         <div class="doc-tile">
           <label for="doc1">
             <ng-container *ngIf="doc1 || user?.passportFiles?.[0]; else placeholderFront">
@@ -188,7 +190,7 @@
         </label>
         <label>
           Описание:
-          <textarea [(ngModel)]="newCar.description" placeholder="Введите описание"></textarea>
+          <textarea class="des" [(ngModel)]="newCar.description" placeholder="Введите описание"></textarea>
         </label>
         <label>
           Объём багажника (л):
@@ -220,7 +222,7 @@
       <div class="cart" *ngIf="userCars.length > 0; else noCars">
         <div *ngFor="let car of userCars" class="car-item">
           <app-car-card [car]="car" [isOwnCar]="true"></app-car-card>
-          <button class="doc-actions" (click)="deleteCar(car._id)">Удалить</button>
+          <button class="doc-actions" (click)="deleteCar(car._id)"></button>
         </div>
       </div>
       <ng-template #noCars>
