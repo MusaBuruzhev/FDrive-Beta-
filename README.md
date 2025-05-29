@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="![image](https://github.com/user-attachments/assets/5a392f6c-0bbd-4ba8-821c-ebd8779cfde6)
-" />
+  <img src="https://github.com/user-attachments/assets/5a392f6c-0bbd-4ba8-821c-ebd8779cfde6" alt="FDrive-Beta Logo" width="200" />
   <h1 align="center">🚗 FDrive-Beta 🚀</h1>
   <div align="center">
     Платформа для аренды автомобилей с современным интерфейсом и продвинутым функционалом.
