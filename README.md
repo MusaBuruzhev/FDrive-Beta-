@@ -78,17 +78,17 @@
 2. Клонируйте репозиторий:
    ```bash
    git clone https://github.com/MusaBuruzhev/FDrive-Beta-.git
-   cd FDrive-Beta-
+   cd FDrive-Beta
 
 3.Создайте файл .env в папке Beckend:
 
-```bash
-JWT_SECRET=секретный_ключ
-EMAIL_USER=ваш_email
-EMAIL_PASS=пароль_приложения
-MONGO_URI=строка_подключения_MongoDB
-PORT=8080
-CLIENT_URL=http://localhost:4200-
+  ```bash
+  JWT_SECRET=секретный_ключ
+  EMAIL_USER=ваш_email
+  EMAIL_PASS=пароль_приложения
+  MONGO_URI=строка_подключения_MongoDB
+  PORT=8080
+  CLIENT_URL=http://localhost:4200
 
 
 4.Установите зависимости и запустите backend:
