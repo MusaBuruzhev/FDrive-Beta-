@@ -89,7 +89,7 @@
   MONGO_URI=строка_подключения_MongoDB
   PORT=8080
   CLIENT_URL=http://localhost:4200
-  ```bash
+
 
 
 4.Установите зависимости и запустите backend:
