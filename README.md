@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./image.jpg" width="700" />
+  <img src="./image.jpg" width="700px" />
   <h1 align="center">🚗 FDrive-Beta 🚀</h1>
   <div align="center">
     Платформа для аренды автомобилей с современным интерфейсом и продвинутым функционалом.
