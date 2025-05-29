@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./image.jpg" width="100%" />
+  <img src="./image.jpg" width="200" />
   <h1 align="center">🚗 FDrive-Beta 🚀</h1>
   <div align="center">
     Платформа для аренды автомобилей с современным интерфейсом и продвинутым функционалом.
@@ -78,31 +78,33 @@
 2. Клонируйте репозиторий:
    ```bash
    git clone https://github.com/MusaBuruzhev/FDrive-Beta-.git
-   cd FDrive-Beta
+   cd FDrive-Beta-
 
 3.Создайте файл .env в папке Beckend:
 
-  ```bash
-  JWT_SECRET=секретный_ключ
-  EMAIL_USER=ваш_email
-  EMAIL_PASS=пароль_приложения
-  MONGO_URI=строка_подключения_MongoDB
-  PORT=8080
-  CLIENT_URL=http://localhost:4200
-
+    ```bash
+    **JWT_SECRET=секретный_ключ
+    **EMAIL_USER=ваш_email
+    **EMAIL_PASS=пароль_приложения
+    **MONGO_URI=строка_подключения_MongoDB
+    **PORT=8080
+    **CLIENT_URL=http://localhost:4200
+  
 
 
 4.Установите зависимости и запустите backend:
 
-cd Beckend
-npm install
-node index.js
+
+    cd Beckend
+    npm install
+    node index.js
 
 5.В новом терминале запустите frontend:
 
-cd FRONT
-npm install
-npm start
+    
+    cd FRONT
+    npm install
+    npm start
 
 6.Перейдите в браузере: http://localhost:4200
 
