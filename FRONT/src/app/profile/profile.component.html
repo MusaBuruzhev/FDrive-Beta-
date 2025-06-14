@@ -10,7 +10,7 @@
   </aside>
 
   <section class="content">
-    <!-- Раздел "Мой профиль" -->
+
     <div *ngIf="section === 'profile'" class="profile-section">
       <div class="profile-card">
         <div class="profile-header">
@@ -72,12 +72,10 @@
       </div>
     </div>
 
- 
     <div *ngIf="section === 'documents'" class="documents-section">
-      <h1 >Прикрепите паспорт и ожидайте проверки </h1>
+      <h1>Прикрепите паспорт и ожидайте проверки</h1>
       <p>Сервис гарантирует конфиденциальность данных. Ваши документы не будут отображаться в публичном профиле.</p>
       <div class="doc-grid-styled">
-        
         <div class="doc-tile">
           <label for="doc1">
             <ng-container *ngIf="doc1 || user?.passportFiles?.[0]; else placeholderFront">
@@ -94,7 +92,6 @@
           </label>
         </div>
 
-        <!-- Вторая сторона -->
         <div class="doc-tile">
           <label for="doc2">
             <ng-container *ngIf="doc2 || user?.passportFiles?.[1]; else placeholderBack">
@@ -180,10 +177,11 @@
             <option *ngFor="let y of years" [value]="y">{{ y }}</option>
           </select>
         </label>
-        <label>
+       <label>
           Цвет:
           <input type="text" [(ngModel)]="newCar.carColor" placeholder="Введите цвет" />
         </label>
+
         <label>
           Цена, ₽:
           <input type="number" [(ngModel)]="newCar.price" placeholder="Введите цену" />
@@ -219,10 +217,94 @@
         </div>
       </div>
 
+      <div *ngIf="showEditCarForm" class="form car-form" style="margin-top: 20px;">
+        <label>
+          Марка:
+          <select [(ngModel)]="editingCar.name" (ngModelChange)="updateModels()">
+            <option value="">Выберите марку</option>
+            <option *ngFor="let brand of brands" [value]="brand.name">{{ brand.name }}</option>
+          </select>
+        </label>
+        <label>
+          Модель:
+          <select [(ngModel)]="editingCar.carModel" [disabled]="!editingCar.name">
+            <option value="">Выберите модель</option>
+            <option *ngFor="let model of availableModels" [value]="model">{{ model }}</option>
+          </select>
+        </label>
+        <label>
+          Коробка передач:
+          <select [(ngModel)]="editingCar.carTransmission">
+            <option value="">Выберите</option>
+            <option *ngFor="let t of transmissions" [value]="t">{{ t }}</option>
+          </select>
+        </label>
+        <label>
+          Топливо:
+          <select [(ngModel)]="editingCar.carFuelType">
+            <option value="">Выберите</option>
+            <option *ngFor="let f of fuelTypes" [value]="f">{{ f }}</option>
+          </select>
+        </label>
+        <label>
+          Кол-во мест:
+          <select [(ngModel)]="editingCar.carSeats">
+            <option value="">Выберите</option>
+            <option *ngFor="let s of seatsOptions" [value]="s">{{ s }}</option>
+          </select>
+        </label>
+        <label>
+          Год:
+          <select [(ngModel)]="editingCar.carYear">
+            <option value="">Выберите</option>
+            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+          </select>
+        </label>
+        <label>
+          Цвет:
+          <input type="text" [(ngModel)]="editingCar.carColor" placeholder="Введите цвет" />
+        </label>
+        <label>
+          Цена, ₽:
+          <input type="number" [(ngModel)]="editingCar.price" placeholder="Введите цену" />
+        </label>
+        <label>
+          Описание:
+          <textarea class="des" [(ngModel)]="editingCar.description" placeholder="Введите описание"></textarea>
+        </label>
+        <label>
+          Объём багажника (л):
+          <input type="number" [(ngModel)]="editingCar.carLuggage" placeholder="Введите объём" />
+        </label>
+        <label>
+          Адрес:
+          <input type="text" [(ngModel)]="editingCar.address" placeholder="Введите адрес" />
+        </label>
+        <label>
+          Доставка:
+          <input type="checkbox" [(ngModel)]="editingCar.canDeliver" />
+        </label>
+        <label>
+          Изображения (4-10):
+          <input type="file" multiple accept=".jpg,.jpeg,.png" (change)="onCarFileChange($event)" />
+        </label>
+        <div class="doc-grid-styled car-images">
+          <div *ngFor="let preview of carImagePreviews; let i = index" class="doc-tile">
+            <img [src]="preview" class="doc-preview" />
+            <button class="doc-actions" style="position: absolute; top: 5px; right: 5px; background-image: url(../../../public/delete.png);" (click)="removeCarImage(i)"></button>
+          </div>
+        </div>
+        <div class="edit-actions">
+          <button class="save-btn" (click)="saveCar()">Сохранить</button>
+          <button class="doc-actions" (click)="cancelEditCar()">Отмена</button>
+        </div>
+      </div>
+
       <div class="cart" *ngIf="userCars.length > 0; else noCars">
         <div *ngFor="let car of userCars" class="car-item">
           <app-car-card [car]="car" [isOwnCar]="true"></app-car-card>
-          <button class="doc-actions" (click)="deleteCar(car._id)"></button>
+          <button class="doc-actions" style="background-image: url(http://localhost:4200/delete.png);" (click)="deleteCar(car._id)"></button>
+          <button class="doc-actions" style="background-image: url(http://localhost:4200/edit.png); background-size: 20px; top: 60px;" (click)="editCar(car)"></button>
         </div>
       </div>
       <ng-template #noCars>

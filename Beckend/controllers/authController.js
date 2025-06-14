@@ -66,13 +66,13 @@ async registration(req, res) {
     }
 
     const message = {
-      from: process.env.EMAIL_USER, // Добавляем поле from
+      from: process.env.EMAIL_USER, 
       to: email,
       subject: "Код подтверждения регистрации",
       text: `Ваш код подтверждения: ${verificationCode}`,
     };
 
-    await mailer(message); // Ожидаем отправку email
+    await mailer(message); 
     return res.status(200).json({ message: "На ваш email отправлен код подтверждения", email });
   } catch (e) {
     if (e.code === 11000 && e.keyPattern?.username) {

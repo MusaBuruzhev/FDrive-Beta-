@@ -140,7 +140,7 @@ h2 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 19px;
   height: 45px;
   background-color: #ffffff;
   color: #3f3f3f;
@@ -193,6 +193,7 @@ h2 {
 .details-item span:first-child {
   font-weight: 600;
   color: #000000;
+  font-size: 19px;
 }
 
 

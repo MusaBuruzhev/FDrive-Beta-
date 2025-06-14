@@ -5,11 +5,11 @@ import { CarService, Car } from '../servis/car.service';
 import { Router } from '@angular/router';
 import { CAR_BRANDS_MODELS } from '../servis/car-brands'; 
 import { FormsModule } from '@angular/forms';
-
+import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CarCardComponent,FormsModule],
+  imports: [RouterOutlet, RouterLink ,CommonModule, CarCardComponent,FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -29,12 +29,12 @@ export class HomeComponent implements AfterViewInit {
   maxStep = 10;
   centerThreshold = 100;
 
-  // Статичные данные брендов и моделей
+
   brands = CAR_BRANDS_MODELS;
   selectedBrand: string = '';
   availableModels: string[] = [];
 
-  // Фильтры, которые передаем на страницу каталога
+
   filters = {
     startDate: '',
     endDate: '',

@@ -72,13 +72,18 @@ export class CarService {
     });
   }
 
+  updateCar(id: string, formData: FormData): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/product/update/${id}`, formData, {
+      headers: this.getAuthHeaders(false),
+    });
+  }
+
   deleteCar(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/product/delproduct/${id}`, {
       headers: this.getAuthHeaders(),
     });
   }
 
-  // Вспомогательный метод для парсинга поля image
   private parseImageField(image: any): string[] {
     if (Array.isArray(image)) {
       return image.map((img) => img.trim());

@@ -27,6 +27,8 @@ export class ProfileComponent implements OnInit {
   docsToModerate: any[] = [];
   userCars: Car[] = [];
   showAddCarForm = false;
+  showEditCarForm = false;
+  editingCar: any = null;
   newCar: any = {
     name: '',
     carModel: '',
@@ -45,8 +47,8 @@ export class ProfileComponent implements OnInit {
   carImagePreviews: string[] = [];
   brands = CAR_BRANDS_MODELS;
   availableModels: string[] = [];
-  transmissions = ['Механика', 'Автомат '];
-  fuelTypes = ['Бензиновый ', 'Дизель', 'Электро'];
+  transmissions = ['Механика', 'Автомат'];
+  fuelTypes = ['Бензиновый', 'Дизель', 'Электро'];
   seatsOptions = [2, 4, 5, 7, 8];
   years = Array.from({ length: 2026 - 2000 }, (_, i) => 2000 + i).reverse();
 
@@ -83,42 +85,43 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
   private parseImageField(image: any): string[] {
-  const apiUrl = 'http://localhost:5000';
-  if (Array.isArray(image)) {
-    return image.map((img: string) =>
-      img.startsWith('http')
-        ? img.replace(/\\/g, '/')
-        : `${apiUrl}/${img.replace(/\\/g, '/')}`
-    );
-  } else if (typeof image === 'string') {
-    return image
-      .split(',')
-      .map(img => img.trim())
-      .filter(img => img.length > 0)
-      .map(img =>
+    const apiUrl = 'http://localhost:5000';
+    if (Array.isArray(image)) {
+      return image.map((img: string) =>
         img.startsWith('http')
           ? img.replace(/\\/g, '/')
           : `${apiUrl}/${img.replace(/\\/g, '/')}`
       );
+    } else if (typeof image === 'string') {
+      return image
+        .split(',')
+        .map(img => img.trim())
+        .filter(img => img.length > 0)
+        .map(img =>
+          img.startsWith('http')
+            ? img.replace(/\\/g, '/')
+            : `${apiUrl}/${img.replace(/\\/g, '/')}`
+        );
+    }
+    return [];
   }
-  return [];
-}
 
-loadUserCars() {
-  this.carService.getUserCars().subscribe({
-    next: (cars) => {
-      this.userCars = cars.map(car => ({
-        ...car,
-        image: this.parseImageField(car.image)
-      }));
-    },
-    error: (err) => {
-      console.error('Ошибка при загрузке автомобилей:', err);
-      this.userCars = [];
-    },
-  });
-}
+  loadUserCars() {
+    this.carService.getUserCars().subscribe({
+      next: (cars) => {
+        this.userCars = cars.map(car => ({
+          ...car,
+          image: this.parseImageField(car.image)
+        }));
+      },
+      error: (err) => {
+        console.error('Ошибка при загрузке автомобилей:', err);
+        this.userCars = [];
+      },
+    });
+  }
 
   canAddCar(): boolean {
     const isProfileFilled =
@@ -138,23 +141,35 @@ loadUserCars() {
   }
 
   updateModels() {
-    const brand = this.brands.find((b) => b.name === this.newCar.name);
+    const brand = this.brands.find((b) => b.name === (this.editingCar ? this.editingCar.name : this.newCar.name));
     this.availableModels = brand ? brand.models : [];
-    if (!brand && this.newCar.carModel) {
-      this.newCar.carModel = '';
+    if (!brand && (this.editingCar ? this.editingCar.carModel : this.newCar.carModel)) {
+      if (this.editingCar) {
+        this.editingCar.carModel = '';
+      } else {
+        this.newCar.carModel = '';
+      }
     }
   }
 
   onCarFileChange(e: any) {
     const files = Array.from(e.target.files) as File[];
-    if (files.length < 4 || files.length > 10) {
-      alert('Загрузите от 4 до 10 изображений');
-      this.carImages = [];
-      this.carImagePreviews = [];
+    if (files.length > 10) {
+      alert('Максимум 10 изображений');
       return;
     }
     this.carImages = files;
     this.carImagePreviews = files.map((file) => URL.createObjectURL(file));
+  }
+
+  removeCarImage(index: number) {
+    if (this.editingCar) {
+      this.editingCar.image.splice(index, 1);
+      this.carImagePreviews.splice(index, 1);
+      if (!this.carImages[index]) {
+        this.carImages.splice(index, 1);
+      }
+    }
   }
 
   addCar() {
@@ -181,7 +196,7 @@ loadUserCars() {
       return;
     }
 
-    if (this.carImages.length < 4 || this.carImages.length > 10) {
+    if (this.carImages.length > 0 && (this.carImages.length < 4 || this.carImages.length > 10)) {
       alert('Загрузите от 4 до 10 изображений');
       return;
     }
@@ -212,6 +227,81 @@ loadUserCars() {
         alert('Не удалось добавить автомобиль: ' + (err.error?.message || 'Проверьте данные'));
       },
     });
+  }
+
+  editCar(car: Car) {
+    this.editingCar = { ...car };
+    this.showEditCarForm = true;
+    this.showAddCarForm = false;
+    this.carImages = [];
+    this.carImagePreviews = [...car.image];
+    this.updateModels();
+  }
+
+  saveCar() {
+    const requiredFields = [
+      { key: 'name', value: this.editingCar.name, label: 'Марка' },
+      { key: 'carModel', value: this.editingCar.carModel, label: 'Модель' },
+      { key: 'description', value: this.editingCar.description, label: 'Описание' },
+      { key: 'price', value: this.editingCar.price, label: 'Цена' },
+      { key: 'carYear', value: this.editingCar.carYear, label: 'Год' },
+      { key: 'carColor', value: this.editingCar.carColor, label: 'Цвет' },
+      { key: 'carTransmission', value: this.editingCar.carTransmission, label: 'Коробка передач' },
+      { key: 'carFuelType', value: this.editingCar.carFuelType, label: 'Топливо' },
+      { key: 'carSeats', value: this.editingCar.carSeats, label: 'Количество мест' },
+      { key: 'carLuggage', value: this.editingCar.carLuggage, label: 'Объём багажника' },
+      { key: 'address', value: this.editingCar.address, label: 'Адрес' },
+    ];
+
+    const missingFields = requiredFields
+      .filter(field => !field.value || field.value === '')
+      .map(field => field.label);
+
+    if (missingFields.length > 0) {
+      alert(`Заполните обязательные поля: ${missingFields.join(', ')}`);
+      return;
+    }
+
+    if (this.carImages.length > 0 && (this.carImages.length + this.editingCar.image.length < 4 || this.carImages.length + this.editingCar.image.length > 10)) {
+      alert('Общее количество изображений должно быть от 4 до 10');
+      return;
+    }
+
+const formData = new FormData();
+  formData.append('name', this.editingCar.name);
+  formData.append('carModel', this.editingCar.carModel);
+  formData.append('description', this.editingCar.description);
+  formData.append('price', this.editingCar.price.toString());
+  formData.append('carYear', this.editingCar.carYear.toString());
+  formData.append('carColor', this.editingCar.carColor);
+  formData.append('carTransmission', this.editingCar.carTransmission);
+  formData.append('carFuelType', this.editingCar.carFuelType);
+  formData.append('carSeats', this.editingCar.carSeats.toString());
+  formData.append('carLuggage', this.editingCar.carLuggage.toString());
+  formData.append('canDeliver', String(this.editingCar.canDeliver));
+  formData.append('address', this.editingCar.address);
+  this.carImages.forEach((file) => formData.append('image[]', file));
+
+  console.log('FormData:', Array.from(formData.entries())); // Для отладки
+
+  this.carService.updateCar(this.editingCar._id, formData).subscribe({
+    next: () => {
+      this.loadUserCars();
+      this.showEditCarForm = false;
+      this.editingCar = null;
+      this.resetCarForm();
+    },
+    error: (err) => {
+      console.error('Ошибка при обновлении авто:', err);
+      alert('Не удалось обновить автомобиль: ' + (err.error?.message || 'Проверьте данные'));
+    },
+  });
+}
+
+  cancelEditCar() {
+    this.showEditCarForm = false;
+    this.editingCar = null;
+    this.resetCarForm();
   }
 
   deleteCar(id: string) {

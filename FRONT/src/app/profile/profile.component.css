@@ -1,4 +1,3 @@
-
 .profile-container {
   display: flex;
   width: 100%;
@@ -7,7 +6,6 @@
   background-color: #f9f9f9;
   margin-top: 107px;
 }
-
 
 .sidebar {
   width: 240px;
@@ -46,14 +44,11 @@
   background-color: #444444;
 }
 
-
 .content {
   flex: 1;
   padding: 40px;
-
   margin: 0 auto;
 }
-
 
 h2 {
   font-size: 24px;
@@ -62,9 +57,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-
 .profile-section {
- 
   margin: 0 auto;
 }
 
@@ -108,7 +101,6 @@ h2 {
   background-color: #cc0000;
   transform: translateY(-2px);
 }
-
 
 .profile-section .form {
   display: flex;
@@ -175,15 +167,9 @@ h2 {
   font-size: 14px;
 }
 
-
 .edit-actions {
-     display: flex
-;
-    gap: 12px;
-    margin-top: 20px;
-    position: absolute;
-    margin-left: 500px;
-    margin-top: 290px;
+  display: flex;
+  gap: 12px;
 }
 
 .edit-actions button:first-child,
@@ -202,10 +188,7 @@ h2 {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-
 }
-
-
 
 .edit-actions button:first-child:hover,
 .save-btn:hover {
@@ -228,33 +211,28 @@ h2 {
   cursor: not-allowed;
 }
 
-
 .documents-section {
   padding: 24px;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      height: 1290px;
-
+  height: 1290px;
 }
-.documents-section h1{
+
+.documents-section h1 {
   font-size: 35px;
 }
-.documents-section p{
+
+.documents-section p {
   font-size: 25px;
 }
 
 .doc-grid-styled {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    justify-content: space-evenly;    display: flex;
-    gap: 24px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 10px;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .doc-tile {
@@ -330,52 +308,43 @@ h2 {
   margin-top: 8px;
 }
 
-
 .cart {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-
-
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 24px;
+  flex-wrap: wrap;
 }
-
 
 .car-item {
   position: relative;
   background-color: #ffffff;
   border-radius: 12px;
-    max-width: 24%;
+  max-width: 24%;
   overflow: hidden;
   transition: transform 0.3s ease;
 }
 
-
-
 .car-item .doc-actions {
-position: absolute;
-      top: 22px;
-    right: 20px;
-    
-    height: 31px;
-    padding: 8px 16px;
-    font-size: 13px;
-    background-color: white;
-    background-image: url(../../../public/delete.png);
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 10;
-    border: none;
-    border-radius: 10px;
-    transition: all .5s;
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  height: 31px;
+  padding: 8px 16px;
+  font-size: 13px;
+  background-color: white;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 10;
+  border: none;
+  border-radius: 10px;
+  transition: all .5s;
 }
 
 .car-item .doc-actions:hover {
   background-color: #ff0000e7;
 }
-
 
 app-car-card {
   display: block;
@@ -420,41 +389,39 @@ app-car-card .car-details span {
   font-size: 13px;
 }
 
-
 .doc-grid-styled.car-images {
   display: flex;
-
   gap: 12px;
 }
 
 .doc-grid-styled.car-images .doc-tile {
-        width: 21%;
-
-    height: 40px;
-    padding: 0;
-    border: 1px solid #d1d5db;
-    background-color: #ffffff;
+  width: 21%;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
 }
 
 .doc-grid-styled.car-images .doc-preview {
-
   height: 100%;
   margin: 0;
 }
 
-
 .form.car-form {
-    max-width: 800px;
-    display: flex;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    position: absolute;
-    z-index: 12;
-    background-color: white;
-    flex-wrap: wrap;
-    flex-direction: column;
-    height: 519px;
-    padding: 20px;
+  max-width: 2000px;
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  position: absolute;
+  z-index: 12;
+  background-color: white;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 519px;
+  padding: 20px;
+  -webkit-box-shadow: 9px 7px 10px 2px rgba(34, 60, 80, 0.2);
+-moz-box-shadow: 9px 7px 10px 2px rgba(34, 60, 80, 0.2);
+box-shadow: 9px 7px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
 .form.car-form label {
@@ -470,9 +437,11 @@ app-car-card .car-details span {
     grid-template-columns: 1fr;
   }
 }
-.des{
+
+.des {
   height: 100px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -524,7 +493,6 @@ table a {
 table a:hover {
   text-decoration: underline;
 }
-
 
 @media (max-width: 768px) {
   .profile-container {
@@ -599,13 +567,10 @@ table a:hover {
   .edit-actions button,
   .save-btn,
   .doc-actions button {
-
     padding: 10px;
-    
   }
 
   .doc-grid-styled.car-images {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
 }
-
